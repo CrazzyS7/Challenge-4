@@ -41,6 +41,7 @@ public class PlayerControllerX : MonoBehaviour
             Destroy(other.gameObject);
             mHasPowerup = true;
             mPowerupIndicator.SetActive(mHasPowerup);
+            StartCoroutine(PowerupCooldown());
         }
         return;
     }
@@ -51,7 +52,6 @@ public class PlayerControllerX : MonoBehaviour
         yield return new WaitForSeconds(mPowerupDuration);
         mHasPowerup = false;
         mPowerupIndicator.SetActive(mHasPowerup);
-        StartCoroutine(PowerupCooldown());
     }
 
     // If Player collides with enemy

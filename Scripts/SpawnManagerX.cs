@@ -53,7 +53,6 @@ public class SpawnManagerX : MonoBehaviour
 
         mWaveCount++;
         ResetPlayerPosition(); // put player back at start
-
     }
 
     // Move player back to position in front of own goal

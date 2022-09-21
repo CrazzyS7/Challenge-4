@@ -6,6 +6,7 @@ public class SpawnManagerX : MonoBehaviour
 {
     public GameObject mPowerupPrefab;
     public GameObject mEnemyPrefab;
+    public GameObject mFocalPoint;
     public GameObject mPlayer;
 
     private float mSpawnRangeX = 10;
@@ -24,6 +25,7 @@ public class SpawnManagerX : MonoBehaviour
         {
             SpawnEnemyWave(mWaveCount);
         }
+        return;
     }
 
     // Generate random spawn position for powerups and enemy balls
@@ -53,15 +55,17 @@ public class SpawnManagerX : MonoBehaviour
 
         mWaveCount++;
         ResetPlayerPosition(); // put player back at start
+        return;
     }
 
     // Move player back to position in front of own goal
     void ResetPlayerPosition ()
     {
+        mFocalPoint.transform.rotation = Quaternion.identity;
         mPlayer.transform.position = new Vector3(0, 1, -7);
         mPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
         mPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-
+        return;
     }
 
 }

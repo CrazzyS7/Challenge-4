@@ -24,9 +24,17 @@ public class PlayerControllerX : MonoBehaviour
 
     void Update()
     {
-        // Add force to player in direction of the focal point (and camera)
         float verticalInput = Input.GetAxis("Vertical");
-        mPlayerRB.AddForce(mFocalPoint.transform.forward * verticalInput * mSpeed * Time.deltaTime); 
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            mPlayerRB.AddForce(mFocalPoint.transform.forward * verticalInput * mSpeed * 100 * Time.deltaTime);
+        }
+        else
+        {
+            // Add force to player in direction of the focal point (and camera)
+            mPlayerRB.AddForce(mFocalPoint.transform.forward * verticalInput * mSpeed * Time.deltaTime);
+        }
 
         // Set powerup indicator position to beneath player
         mPowerupIndicator.transform.position = transform.position - mPowerupIndicatorOffset;

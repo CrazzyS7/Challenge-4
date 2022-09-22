@@ -10,10 +10,10 @@ public class PlayerControllerX : MonoBehaviour
     private float mNormalStrength = 10;             // how hard to hit enemy without powerup
     private bool mHasPowerup = false;
     private int mPowerupDuration = 5;
+    private int mTurboBoost = 1000;
     private GameObject mFocalPoint;
     private float mSpeed = 500.0f;
     private Rigidbody mPlayerRB;
-    private int mTurboBoost = 1000;
 
     public GameObject mPowerupIndicator;
     public ParticleSystem mSmokePtcl;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControllerX : MonoBehaviour
 {
     private Vector3 mPowerupIndicatorOffset = new Vector3(0, 0.5f, 0);
+    private Vector3 mSmokePtclOffset = new Vector3(0, 1.0f, 0);
     private float mPowerupStrength = 25;            // how hard to hit enemy with powerup
     private float mNormalStrength = 10;             // how hard to hit enemy without powerup
     private bool mHasPowerup = false;
@@ -12,8 +13,10 @@ public class PlayerControllerX : MonoBehaviour
     private GameObject mFocalPoint;
     private float mSpeed = 500.0f;
     private Rigidbody mPlayerRB;
+    private int mTurboBoost = 1000;
 
     public GameObject mPowerupIndicator;
+    public ParticleSystem mSmokePtcl;
 
     void Start()
     {
@@ -26,18 +29,22 @@ public class PlayerControllerX : MonoBehaviour
     {
         float verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && System.Convert.ToBoolean(verticalInput))
         {
-            mPlayerRB.AddForce(mFocalPoint.transform.forward * verticalInput * mSpeed * 100 * Time.deltaTime);
+            mSmokePtcl.Play();
+            mPlayerRB.AddForce(mFocalPoint.transform.forward * verticalInput * mTurboBoost * Time.deltaTime);
         }
         else
         {
             // Add force to player in direction of the focal point (and camera)
+            mSmokePtcl.Stop();
             mPlayerRB.AddForce(mFocalPoint.transform.forward * verticalInput * mSpeed * Time.deltaTime);
         }
 
         // Set powerup indicator position to beneath player
-        mPowerupIndicator.transform.position = transform.position - mPowerupIndicatorOffset;
+        Vector3 playerPos = transform.position;
+        mSmokePtcl.transform.position = playerPos - mSmokePtclOffset;
+        mPowerupIndicator.transform.position = playerPos - mPowerupIndicatorOffset;
         return;
     }
 
